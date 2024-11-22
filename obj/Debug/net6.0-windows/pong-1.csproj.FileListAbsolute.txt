@@ -36,3 +36,5 @@ C:\Users\Admin\Documents\GitHub\pong-1\obj\Debug\net6.0-windows\refint\pong-1.dl
 C:\Users\Admin\Documents\GitHub\pong-1\obj\Debug\net6.0-windows\pong-1.pdb
 C:\Users\Admin\Documents\GitHub\pong-1\obj\Debug\net6.0-windows\pong-1.genruntimeconfig.cache
 C:\Users\Admin\Documents\GitHub\pong-1\obj\Debug\net6.0-windows\ref\pong-1.dll
+C:\Users\Admin\Documents\GitHub\pong-1\obj\Debug\net6.0-windows\pong-1.sourcelink.json
+C:\Users\Admin\Documents\GitHub\pong-1\bin\Debug\net6.0-windows\Content\Score.xnb
