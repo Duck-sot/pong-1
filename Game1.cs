@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using pong_1;
 using SharpDX.X3DAudio;
 
 namespace pong_1;
@@ -14,10 +15,9 @@ public class Game1 : Game
     SpriteFont fontscore;
     Rectangle paddelLeft = new Rectangle(x: 10,y: 200, width: 20 , height: 100);
     Rectangle paddelRight = new Rectangle(x: 770,y: 200, width: 20 , height: 100);
-    Rectangle ball = new Rectangle(x: 390,y: 230, width: 20 , height: 20);
-
-    float Vel1 = 2;
-    float Vel2 = 2;
+    
+    ball ball; 
+    
 
     int scoreRp = 0;
     int scoreLp = 0; 
@@ -42,6 +42,8 @@ public class Game1 : Game
         // TODO: use this.Content to load your game content here
         pixel = Content.Load<Texture2D>(assetName: "pixel");
         fontscore = Content.Load<SpriteFont>(assetName:"score");
+
+        ball = new ball(t: pixel);
     }
 
     protected override void Update(GameTime gameTime)
@@ -63,21 +65,17 @@ public class Game1 : Game
                 paddelRight.Y+=3;
             }
 
-            ball.Y += (int)Vel2;            
-            ball.X += (int)Vel1;
-            if (ball.Intersects(paddelRight) || ball.Intersects(paddelLeft)){
-                Vel1 *= -1.1f;
-                Vel2 *= 1.1f; 
+            
+            ball.update();
+            
+            
+            if(ball.Rectangle.X <= 0 ){
+                ball.Reset();
+                scoreRp++;
             }
-
-            if(ball.Y <= 0 || ball.Y >=460){
-                Vel2 *= -1.001f;
-            }
-            if(ball.X <= 0  || ball.X + ball.Width>= 800){
-                ball.X =390;
-                ball.Y = 230;
-                Vel1 = 2; 
-                Vel2 = 2;
+            else if(ball.Rectangle.X + ball.Rectangle.Width>= 800){
+                ball.Reset();
+                scoreLp++;
             }
 
         // TODO: Add your update logic here
@@ -91,12 +89,12 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
-        _spriteBatch.DrawString(fontscore,scoreLp.ToString(),new Vector2(x: 10, y :10), Color.Black);
-        _spriteBatch.DrawString(fontscore,scoreRp.ToString(),new Vector2(x: 410, y :10), Color.Black);
+        _spriteBatch.DrawString(fontscore,scoreLp.ToString(),new Vector2(x: 70, y :10), Color.Black);
+        _spriteBatch.DrawString(fontscore,scoreRp.ToString(),new Vector2(x: 670, y :10), Color.Black);
 
         _spriteBatch.Draw(pixel,paddelLeft, Color.HotPink);
         _spriteBatch.Draw(pixel,paddelRight, Color.BlueViolet);
-        _spriteBatch.Draw(pixel,ball, Color.LightGoldenrodYellow);
+        ball.Draw(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);
